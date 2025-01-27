@@ -29,7 +29,7 @@ app.use(cors());
 
 app.get('/',(req,res)=>{
     console.log('hey all out thereee!')
-    return res.status(200).json({ title: 'Hey every one.This is sabyasachi Sen!' });
+    return res.status(200).json({ title: 'Hey every one.This is sabyasachi Sen! japan is here' });
 })
 
 // Endpoint for generating blog posts and images based on text prompt
