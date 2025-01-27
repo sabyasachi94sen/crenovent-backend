@@ -67,17 +67,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-    - name: Log in to registry
-      uses: docker/login-action@v2
-      with:
-        registry: crenoventbackendapp.azurecr.io
-        username: ${{ secrets.AzureAppService_ContainerUsername_748ca0213df144e19babc6a06973f3be }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_b66b1d3ef7d94ac096896ae91b2f3507 }}
+      - name: Build Docker image
+        run: |
+          docker build . -t crenoback:latest  # Build the image with a 'latest' tag
+
+      - name: Tag Docker image
+        run: |
+          docker tag crenoback:latest crenoventbackendapp.azurecr.io/crenoback:${{ github.sha }}  # Tag the image for ACR
+
+      - name: Log in to registry
+        uses: docker/login-action@v2
+        with:
+          registry: crenoventbackendapp.azurecr.io
+          username: ${{ secrets.AzureAppService_ContainerUsername_748ca0213df144e19babc6a06973f3be }}
+          password: ${{ secrets.AzureAppService_ContainerPassword_b66b1d3ef7d94ac096896ae91b2f3507 }}
 
       - name: Push Docker image to ACR
         run: |
