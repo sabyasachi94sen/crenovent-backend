@@ -28,7 +28,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(cors());
 
 app.get('/',(req,res)=>{
-    console.log('hey all out there!')
+    console.log('hey all out thereee!')
     return res.status(200).json({ title: 'Hey every one.This is sabyasachi!' });
 })
 
