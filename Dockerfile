@@ -18,5 +18,9 @@ COPY . .
 # Expose the port your app runs on (default is 3000 for many Node.js apps)
 EXPOSE 80
 
+ENV NODE_ENV=development
+ENV DEBUG=true
+
+
 # Command to run your application
 CMD ["node", "app.js"]
