@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: crenoventbackendapp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_8212426f193949bd8be5e3aa3e1a0fec }}/crenoback:${{ github.sha }}
+        tags: crenoventbackendapp.azurecr.io/crenoback:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'apicrenovent'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_c08e45281be94cb59067bae6aac8a30d }}
-        images: 'crenoventbackendapp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_8212426f193949bd8be5e3aa3e1a0fec }}/crenoback:${{ github.sha }}'
+        images: 'crenoventbackendapp.azurecr.io/crenoback:${{ github.sha }}'
