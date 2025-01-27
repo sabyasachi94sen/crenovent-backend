@@ -22,6 +22,7 @@ EXPOSE 80
 
 ENV NODE_ENV=development
 ENV DEBUG=true
+ENV COSMOS_CONNECTION_STRING=mongodb+srv://sabya1234sen:Nvidia9600%40@crenovent-backend-dev.mongocluster.cosmos.azure.com/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000
 
 
 # Command to run your application
