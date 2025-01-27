@@ -27,6 +27,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use(cors());
 
+app.get('/',(req,res)=>{
+    return res.status(200).json({ title: 'Hey every one!' });
+})
 
 // Endpoint for generating blog posts and images based on text prompt
 app.post('/generate-content', generateContent);
