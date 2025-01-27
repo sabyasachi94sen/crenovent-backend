@@ -14,7 +14,7 @@ const fs = require('fs');
 const { isJsonString } = require('./helper');
 const upload = multer({ dest: 'uploads/' }); // Temporary storage location
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 80;
 
 
 
