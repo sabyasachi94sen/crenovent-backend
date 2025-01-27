@@ -16,7 +16,7 @@ COPY . .
 # Run the build command (if applicable)
 
 # Expose the port your app runs on (default is 3000 for many Node.js apps)
-EXPOSE 80
+EXPOSE 8080
 
 ENV NODE_ENV=development
 ENV DEBUG=true
