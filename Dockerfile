@@ -23,4 +23,4 @@ ENV DEBUG=true
 
 
 # Command to run your application
-CMD ["node", "app.js"]
+CMD ["npm","run","start"]
