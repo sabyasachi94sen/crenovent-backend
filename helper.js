@@ -1,3 +1,5 @@
+const User = require("./models/user");
+
 function isJsonString(req, res, next) {
     const body = req.body;
 
@@ -11,13 +13,30 @@ function isJsonString(req, res, next) {
     }
 }
 
+async function isUserExist(req,res,next){
+    
+    if (!req?.body) {
+        return res.status(400).json({message: 'Please provide username,email and password!'});
+    }
+ 
+    const { email } = req.body;
+    const userEmail = await User.findOne({ email });
+   
+    if (userEmail) {
+        return res.status(400).json({ message: 'User is already registered.' });
+    }
+
+    next();
+
+}
+
 
 function checkFile(req, res, next) {
     const file = req?.file;
 
     // Check if a file was uploaded
     if (!file) {
-        return res.status(400).send('No file uploaded.');
+        return res.status(400).json({message: 'No file uploaded.'});
     }
 
     // Check file type
@@ -31,7 +50,7 @@ function checkFile(req, res, next) {
     ];
     
     if (!allowedTypes.includes(file.mimetype)) {
-        return res.status(400).send('Invalid file type. Only Excel (XLS, XLSX), Word (DOC, DOCX), and CSV files are allowed.');
+        return res.status(400).json({message: 'Invalid file type. Only Excel (XLS, XLSX), Word (DOC, DOCX), and CSV files are allowed.'});
     }
 
     // If all checks pass, proceed to the next middleware
@@ -40,5 +59,6 @@ function checkFile(req, res, next) {
 
 module.exports={
     isJsonString,
-    checkFile
+    checkFile,
+    isUserExist
 }

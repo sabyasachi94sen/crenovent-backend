@@ -11,7 +11,8 @@ const FormData = require('./models/leads'); // Import the FormData model
 const { generatePersona, generateContent } = require('./generate-content/index'); // Import streaming function
 const multer = require('multer');
 const fs = require('fs');
-const { isJsonString,checkFile } = require('./helper');
+const { isJsonString,checkFile,isUserExist } = require('./helper');
+const User = require('./models/user');
 const upload = multer({ dest: 'uploads/' }); // Temporary storage location
 const app = express();
 const port = process.env.PORT || 3001;
@@ -38,6 +39,18 @@ app.post('/generate-content', generateContent);
 app.post('/generate-persona', upload.single('file'),checkFile, generatePersona);
 // Handle form submission
 app.post('/leads',isJsonString, handleLeads);
+
+app.post('/register',isUserExist, async (req, res) => {
+    const { username, email, password } = req.body;
+
+    try {
+        const newUser  = new User({ username, email, password });
+        await newUser .save();
+        res.status(201).json({ message: 'User  registered successfully!',status:201 });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
 
 
 // Start the server
