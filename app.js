@@ -14,7 +14,7 @@ const fs = require('fs');
 const { isJsonString } = require('./helper');
 const upload = multer({ dest: 'uploads/' }); // Temporary storage location
 const app = express();
-const port = 80;
+const port = process.env.PORT || 3000;
 
 
 
@@ -29,7 +29,7 @@ app.use(cors());
 
 app.get('/',(req,res)=>{
     console.log('hey all out thereee!')
-    return res.status(200).json({ title: 'Hey every one.This is sabyasachi Sen! japan is here' });
+    return res.status(200).json({ title: 'Hey every one.This is sabyasachi Sen! china is here!' });
 })
 
 // Endpoint for generating blog posts and images based on text prompt
