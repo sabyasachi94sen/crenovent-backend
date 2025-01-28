@@ -12,6 +12,33 @@ function isJsonString(req, res, next) {
 }
 
 
+function checkFile(req, res, next) {
+    const file = req?.file;
+
+    // Check if a file was uploaded
+    if (!file) {
+        return res.status(400).send('No file uploaded.');
+    }
+
+    // Check file type
+    const allowedTypes = [
+        'application/vnd.ms-excel', // XLS
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // XLSX
+        'application/msword', // DOC
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // DOCX
+        'text/csv', // CSV
+        'application/csv' // CSV
+    ];
+    
+    if (!allowedTypes.includes(file.mimetype)) {
+        return res.status(400).send('Invalid file type. Only Excel (XLS, XLSX), Word (DOC, DOCX), and CSV files are allowed.');
+    }
+
+    // If all checks pass, proceed to the next middleware
+    next();
+}
+
 module.exports={
-    isJsonString
+    isJsonString,
+    checkFile
 }

@@ -11,10 +11,10 @@ const FormData = require('./models/leads'); // Import the FormData model
 const { generatePersona, generateContent } = require('./generate-content/index'); // Import streaming function
 const multer = require('multer');
 const fs = require('fs');
-const { isJsonString } = require('./helper');
+const { isJsonString,checkFile } = require('./helper');
 const upload = multer({ dest: 'uploads/' }); // Temporary storage location
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 
 
@@ -35,7 +35,7 @@ app.get('/',(req,res)=>{
 // Endpoint for generating blog posts and images based on text prompt
 app.post('/generate-content', generateContent);
 // Endpoint for analyzing Excel data and generating a customer persona
-app.post('/generate-persona', upload.single('file'), generatePersona);
+app.post('/generate-persona', upload.single('file'),checkFile, generatePersona);
 // Handle form submission
 app.post('/leads',isJsonString, handleLeads);
 

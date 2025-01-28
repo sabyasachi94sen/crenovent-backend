@@ -1,5 +1,7 @@
 const geminiClient = require('../gemini-client');
 const xlsx = require('xlsx');
+const fs = require('fs');
+
 
 async function generateCustomerPersona(data) {
     const prompt = `Based on the following customer data, create a detailed customer persona:\n${JSON.stringify(data)} for each customer
